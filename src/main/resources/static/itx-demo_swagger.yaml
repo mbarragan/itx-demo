@@ -1,0 +1,128 @@
+---
+swagger: "2.0"
+info:
+  title: itx-demo
+  version: 1.0.0
+  description: Demo for ITX API (Swagger)
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /fare:
+    post:
+      parameters:
+      - name: body
+        description: the fare payload
+        schema:
+          $ref: '#/definitions/FareModel'
+        in: body
+        required: true
+      responses:
+        "200":
+          description: ' 200_OK'
+          schema:
+            $ref: '#/definitions/FareModel'
+          examples:
+            application/json:
+              id: 2
+              productId: 35455
+              startDate: 2019-07-16T16:55:42.000Z
+              endDate: 2019-07-16T16:55:42.000Z
+              brandId: 1
+              price: 35.05
+        "404":
+          description: FARE NOT FOUND
+          examples:
+            application/json:
+              timestamp: 2021-09-17T12:09:21.368+00:00
+              status: 404
+              error: Not Found
+              message: ""
+              path: /fare
+      summary: get fare
+      description: get the valid fare according to the business rules
+definitions:
+  Fare:
+    description: the fare entity
+    type: object
+    properties:
+      id:
+        format: int64
+        description: id of the fare
+        type: integer
+      productId:
+        format: int32
+        description: the id of the product
+        type: integer
+      startDate:
+        format: date-time
+        description: beginning of the fare
+        type: string
+      endDate:
+        format: date-time
+        description: 'end of the fare '
+        type: string
+      brandId:
+        format: int32
+        description: the brand id
+        type: integer
+      price:
+        format: double
+        description: the fare value
+        type: number
+      priority:
+        format: int32
+        description: the priority order
+        type: integer
+      currency:
+        description: the currency ISO value
+        maxLength: 3
+        minLength: 3
+        type: string
+    example:
+      id: 2
+      productId: 35455
+      startDate: 2019-07-16T16:55:42.000Z
+      endDate: 2019-07-16T16:55:42.000Z
+      brandId: 1
+      price: 35.05
+      priority: 0
+      currency: EUR
+  FareModel:
+    title: Root Type for PriceModel
+    description: Payload to interact with price services
+    required:
+    - productId
+    - brandId
+    - startDate
+    type: object
+    properties:
+      id:
+        format: int64
+        description: id of the fare
+        type: integer
+      productId:
+        format: int32
+        description: the id of the product
+        type: integer
+      startDate:
+        format: date-time
+        description: beginning of the fare
+        type: string
+      endDate:
+        format: date-time
+        description: 'end of the fare '
+        type: string
+      brandId:
+        format: int32
+        description: the brand id
+        type: integer
+      price:
+        format: double
+        description: the fare value
+        type: number
+    example:
+      productId: 35455
+      startDate: 2019-07-16T16:55:42.000Z
+      brandId: 1

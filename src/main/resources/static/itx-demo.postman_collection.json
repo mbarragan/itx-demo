@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "1f997e6b-be8f-4136-b88e-118e0bf61ac8",
+		"name": "itx-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getFare",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": 35455,\n    \"startDate\": \"2020-06-16T21:00:00\",\n    \"brandId\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/fare",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fare"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
