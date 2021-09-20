@@ -25,7 +25,7 @@ public class FareRepositoryIntegrationTest {
     @Test
     public void whenFindFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc_thenReturnFare() {
         // given
-        Fare fareMock = new Fare(Constants.FARE_ID_MOCK, Constants.PRODUCT_ID_MOCK, Constants.FARE_START_DATETIME_MOCK,
+        Fare fareMock = new Fare(null, Constants.PRODUCT_ID_MOCK, Constants.FARE_START_DATETIME_MOCK,
             Constants.FARE_END_DATETIME_MOCK, Constants.BRAND_ID_MOCK, Constants.FARE_AMOUNT_MOCK,
             Constants.FARE_PRIORITY_MOCK, Constants.FARE_CURRENCY_MOCK);
 

@@ -45,7 +45,7 @@ public class FareWSIntegrationTest {
     @Test
     public void getFareTest() throws Exception {
 
-        FareModel fareModelMock = new FareModel(Constants.FARE_ID_MOCK, Constants.PRODUCT_ID_MOCK,
+        FareModel fareModelMock = new FareModel(null, Constants.PRODUCT_ID_MOCK,
             Constants.FARE_DATETIME_MOCK, null, Constants.BRAND_ID_MOCK, null);
         Mockito.when(fareService.getFare( fareModelMock)).thenReturn( Optional.of(fareModelMock));
 

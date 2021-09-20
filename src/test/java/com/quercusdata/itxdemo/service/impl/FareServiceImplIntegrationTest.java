@@ -62,8 +62,8 @@ public class FareServiceImplIntegrationTest {
     public void whenValidFare_thenFareShouldBeFound() {
         Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
 
-        Assert.assertNotNull("foundFareOpt is present", foundFareOpt.isPresent());
-        Assert.assertEquals(foundFareOpt.get().getProductId(), Constants.PRODUCT_ID_MOCK);
+        Assert.assertTrue("foundFareOpt is present", foundFareOpt.isPresent());
+        Assert.assertEquals(Constants.PRODUCT_ID_MOCK, foundFareOpt.get().getProductId());
         //TODO add more assertEquals
     }
 }

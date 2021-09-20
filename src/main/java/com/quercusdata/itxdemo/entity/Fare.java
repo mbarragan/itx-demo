@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "T_FARE")
 public class Fare {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer productId;
     private LocalDateTime startDate;
