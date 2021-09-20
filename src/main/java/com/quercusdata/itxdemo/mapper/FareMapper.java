@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FareMapper {
-    public FareMapper() {
-    }
 
     public Fare mapApiToPersistence(FareModel fareModel) {
         Fare fare = new Fare();
@@ -20,7 +18,7 @@ public class FareMapper {
         return fare;
     }
 
-    public FareModel mapPersistanceToApi(Fare fare) {
+    public FareModel mapPersistenceToApi(Fare fare) {
         FareModel fareModel = new FareModel();
         fareModel.setId(fare.getId());
         fareModel.setPrice(fare.getPrice());

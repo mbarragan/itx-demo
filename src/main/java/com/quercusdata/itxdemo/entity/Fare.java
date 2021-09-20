@@ -28,6 +28,18 @@ public class Fare {
     public Fare() {
     }
 
+    public Fare(Long id, Integer productId, LocalDateTime startDate, LocalDateTime endDate, Integer brandId, Double price,
+                Integer priority, String currency) {
+        this.id = id;
+        this.productId = productId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.brandId = brandId;
+        this.price = price;
+        this.priority = priority;
+        this.currency = currency;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -93,6 +105,8 @@ public class Fare {
     }
 
     public String toString() {
-        return "Fare{id=" + this.id + ", productId=" + this.productId + ", startDate=" + this.startDate + ", endDate=" + this.endDate + ", brandId=" + this.brandId + ", price=" + this.price + ", priority=" + this.priority + ", currency='" + this.currency + '\'' + '}';
+        return "Fare{id=" + this.id + ", productId=" + this.productId + ", startDate=" + this.startDate + ", endDate="
+            + this.endDate + ", brandId=" + this.brandId + ", price=" + this.price + ", priority=" + this.priority +
+            ", currency='" + this.currency + '\'' + '}';
     }
 }
