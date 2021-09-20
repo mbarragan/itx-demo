@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FareRepository extends JpaRepository<Fare, Long> {
 
-    Optional<Fare> findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime before,
+    public Optional<Fare> findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime before,
                                                                                                       LocalDateTime after,
                                                                                                       Integer productId,
                                                                                                       Integer brandId);

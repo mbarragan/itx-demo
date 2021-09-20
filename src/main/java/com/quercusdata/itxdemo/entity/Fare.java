@@ -8,14 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(
-    name = "T_FARE"
-)
+@Table(name = "T_FARE")
 public class Fare {
     @Id
-    @GeneratedValue(
-        strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer productId;
     private LocalDateTime startDate;
