@@ -43,10 +43,10 @@ public class FareWSIntegrationTest {
     private FareService fareService;
 
     @Test
-    public void getFareTest() throws Exception {
+    public void getFareTest1() throws Exception {
 
         FareModel fareModelMock = new FareModel(null, Constants.PRODUCT_ID_MOCK,
-            Constants.FARE_DATETIME_MOCK, null, Constants.BRAND_ID_MOCK, null);
+            Constants.FARE_DATETIME_MOCK_1, null, Constants.BRAND_ID_MOCK, null);
         Mockito.when(fareService.getFare( fareModelMock)).thenReturn( Optional.of(fareModelMock));
 
         mvc.perform(post("/fare").contentType(MediaType.APPLICATION_JSON)

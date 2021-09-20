@@ -49,10 +49,11 @@ public class FareServiceImplIntegrationTest {
             Constants.FARE_PRIORITY_MOCK, Constants.FARE_CURRENCY_MOCK);
 
         fareModelMock = new FareModel(Constants.FARE_ID_MOCK, Constants.PRODUCT_ID_MOCK,
-            Constants.FARE_DATETIME_MOCK, null, Constants.BRAND_ID_MOCK, null);
+            Constants.FARE_DATETIME_MOCK_1, null, Constants.BRAND_ID_MOCK, null);
 
         Mockito.when(fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
-            Constants.FARE_DATETIME_MOCK, Constants.FARE_DATETIME_MOCK, Constants.PRODUCT_ID_MOCK, Constants.BRAND_ID_MOCK))
+            Constants.FARE_DATETIME_MOCK_1, Constants.FARE_DATETIME_MOCK_1, Constants.PRODUCT_ID_MOCK,
+                Constants.BRAND_ID_MOCK))
             .thenReturn(Optional.of( fareMock));
 
         Mockito.when(fareMapper.mapPersistenceToApi( fareMock)).thenReturn( fareModelMock);
