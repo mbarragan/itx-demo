@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/itx-demo.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%-52.-52(%date{ISO8601} [%thread]) %-5level %-30.-30logger{0} - %-30.-30M - %msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>./logs/aws-springboot.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>90</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+	<logger name="com.quercusdata.itxdemo" level="debug" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+	
+	<!-- JPA/Hibernate logging -->
+	<!-- To display SQL requests, set level to DEBUG for hibernate.sql and TRACE for hibernate.type.descriptor.sql and hibernate.type -->
+<!--	<logger name="org.hibernate.SQL" level="DEBUG" additivity="false">-->
+<!--		<appender-ref ref="FILE" />-->
+<!--	</logger>-->
+<!--	<logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">-->
+<!--			<appender-ref ref="FILE" />-->
+<!--	</logger>-->
+<!--    <logger name="org.hibernate.type" level="TRACE" additivity="false">-->
+<!--    	<appender-ref ref="FILE" />-->
+<!--	</logger>-->
+
+	<logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+
+	<logger name="org.springframework.security">
+        <level value="INFO"/>
+    </logger>
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>
