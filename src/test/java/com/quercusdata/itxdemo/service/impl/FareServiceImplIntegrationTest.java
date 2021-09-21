@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -42,29 +43,43 @@ public class FareServiceImplIntegrationTest {
 
     private FareModel fareModelMock;
 
+    private Fare fareMock;
+
     @Before
     public void setUp() {
-        Fare fareMock = new Fare(Constants.FARE_ID_MOCK, Constants.PRODUCT_ID_MOCK, Constants.FARE_START_DATETIME_MOCK,
+        fareMock = new Fare(null, Constants.PRODUCT_ID_MOCK, Constants.FARE_START_DATETIME_MOCK,
             Constants.FARE_END_DATETIME_MOCK, Constants.BRAND_ID_MOCK, Constants.FARE_AMOUNT_MOCK,
             Constants.FARE_PRIORITY_MOCK, Constants.FARE_CURRENCY_MOCK);
 
-        fareModelMock = new FareModel(Constants.FARE_ID_MOCK, Constants.PRODUCT_ID_MOCK,
-            Constants.FARE_DATETIME_MOCK_1, null, Constants.BRAND_ID_MOCK, null);
+        fareModelMock = new FareModel(null, Constants.PRODUCT_ID_MOCK,
+            Constants.FARE_DATETIME_MOCK_2, null, Constants.BRAND_ID_MOCK, null);
 
-        Mockito.when(fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
-            Constants.FARE_DATETIME_MOCK_1, Constants.FARE_DATETIME_MOCK_1, Constants.PRODUCT_ID_MOCK,
-                Constants.BRAND_ID_MOCK))
-            .thenReturn(Optional.of( fareMock));
-
-        Mockito.when(fareMapper.mapPersistenceToApi( fareMock)).thenReturn( fareModelMock);
+        Mockito.when(fareMapper.mapPersistenceToApi(  ArgumentMatchers.any(Fare.class))).thenReturn( fareModelMock);
     }
 
     @Test
     public void whenValidFare_thenFareShouldBeFound() {
+        Mockito.when(fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
+                Constants.FARE_DATETIME_MOCK_2, Constants.FARE_DATETIME_MOCK_2, Constants.PRODUCT_ID_MOCK,
+                Constants.BRAND_ID_MOCK))
+            .thenReturn(Optional.of( fareMock));
+
         Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
 
         Assert.assertTrue("foundFareOpt is present", foundFareOpt.isPresent());
         Assert.assertEquals(Constants.PRODUCT_ID_MOCK, foundFareOpt.get().getProductId());
-        //TODO add more assertEquals
+        Assert.assertEquals(Constants.BRAND_ID_MOCK, foundFareOpt.get().getBrandId());
+        Assert.assertEquals(Constants.FARE_DATETIME_MOCK_2, foundFareOpt.get().getStartDate());
+    }
+
+    @Test
+    public void whenInvalidFare_thenFareShouldNotBeFound() {
+        Mockito.when(fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
+            Mockito.any(), Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(Optional.empty());
+
+        Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
+
+        Assert.assertFalse("foundFareOpt is not present", foundFareOpt.isPresent());
+        Assert.assertEquals(Optional.empty(), foundFareOpt);
     }
 }

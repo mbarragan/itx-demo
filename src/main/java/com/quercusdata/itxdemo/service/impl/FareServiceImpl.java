@@ -25,9 +25,6 @@ public class FareServiceImpl implements FareService {
     private FareMapper      fareMapper;
 
 
-    public FareServiceImpl() {
-    }
-
     @Transactional
     public Optional<FareModel> getFare(FareModel fareModel) {
         log.debug("Entering with fareModel {}", fareModel);

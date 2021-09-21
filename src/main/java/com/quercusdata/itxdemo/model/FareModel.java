@@ -1,19 +1,28 @@
 package com.quercusdata.itxdemo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 public class FareModel {
     @JsonProperty("id")
     private Long id;
+
     @JsonProperty("productId")
     private Integer productId;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonProperty("startDate")
     private LocalDateTime startDate;
+
     @JsonProperty("endDate")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endDate;
+
     @JsonProperty("brandId")
     private Integer brandId;
+
     @JsonProperty("price")
     private Double price;
 

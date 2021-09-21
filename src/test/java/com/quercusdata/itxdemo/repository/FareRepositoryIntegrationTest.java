@@ -17,10 +17,10 @@ import java.util.Optional;
 public class FareRepositoryIntegrationTest {
 
     @Autowired
-    private TestEntityManager entityManager;
+    private TestEntityManager   entityManager;
 
     @Autowired
-    private FareRepository fareRepository;
+    private FareRepository      fareRepository;
 
     @Test
     public void whenFindFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc_thenReturnFare() {
@@ -35,10 +35,17 @@ public class FareRepositoryIntegrationTest {
         // when
         Optional<Fare> fareFound =
             fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
-            fareMock.getStartDate(), fareMock.getStartDate(), fareMock.getProductId(), fareMock.getBrandId());
+            Constants.FARE_DATETIME_MOCK_2, Constants.FARE_DATETIME_MOCK_2, Constants.PRODUCT_ID_MOCK, Constants.BRAND_ID_MOCK);
 
         // then
         Assert.assertTrue("fareFound isPresent", fareFound.isPresent());
         Assert.assertEquals(fareFound.get().getProductId(), fareMock.getProductId());
+        Assert.assertEquals(fareFound.get().getBrandId(), fareMock.getBrandId());
+        Assert.assertEquals(Constants.FARE_ID_MOCK_2, fareFound.get().getId());
+        Assert.assertEquals(Constants.FARE_START_DATETIME_MOCK, fareFound.get().getStartDate());
+        Assert.assertEquals(Constants.FARE_END_DATETIME_MOCK, fareFound.get().getEndDate());
+        Assert.assertEquals(Constants.FARE_AMOUNT_MOCK, fareFound.get().getPrice());
+        Assert.assertEquals(Constants.FARE_CURRENCY_MOCK, fareFound.get().getCurrency());
+        Assert.assertEquals(Constants.FARE_PRIORITY_MOCK, fareFound.get().getPriority());
     }
 }

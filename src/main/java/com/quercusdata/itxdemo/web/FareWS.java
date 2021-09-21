@@ -31,9 +31,8 @@ public class FareWS {
         if (!filteredFareModelOpt.isPresent()) {
             log.debug(Constants.MESSAGE_FARE_NOT_FOUND);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.MESSAGE_FARE_NOT_FOUND);
-        } else {
-            log.debug("Leaving");
-            return new ResponseEntity<>(filteredFareModelOpt.get(), HttpStatus.OK);
         }
+        log.debug("Leaving");
+        return new ResponseEntity<>(filteredFareModelOpt.get(), HttpStatus.OK);
     }
 }
