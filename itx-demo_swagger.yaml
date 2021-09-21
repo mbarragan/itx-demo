@@ -27,8 +27,8 @@ paths:
             application/json:
               id: 2
               productId: 35455
-              startDate: 2019-07-16T16:55:42.000Z
-              endDate: 2019-07-16T16:55:42.000Z
+              startDate: 2019-07-16T16:55:42
+              endDate: 2019-07-16T16:55:42
               brandId: 1
               price: 35.05
         "404":
@@ -83,8 +83,8 @@ definitions:
     example:
       id: 2
       productId: 35455
-      startDate: 2019-07-16T16:55:42.000Z
-      endDate: 2019-07-16T16:55:42.000Z
+      startDate: 2019-07-16T16:55:42
+      endDate: 2019-07-16T16:55:42
       brandId: 1
       price: 35.05
       priority: 0
@@ -124,5 +124,5 @@ definitions:
         type: number
     example:
       productId: 35455
-      startDate: 2019-07-16T16:55:42.000Z
+      startDate: 2019-07-16T16:55:42
       brandId: 1
