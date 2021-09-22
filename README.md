@@ -1,5 +1,15 @@
 # itx-demo
 
+Rest Microservice for ITX.
+See technical documentation (Json collection and Swagger yaml file) on the project root.
+
+You can find the requested tests as described below in class `ItxDemoIntegrationTest.java`.
+
+Other tests were implemented to cover 91% of code lines.
+
+---------------------------------
+# La prueba
+
 En la base de datos de comercio electrónico de la compañía disponemos de la tabla
 PRECIOS que refleja el precio final (pvp) y la tarifa que aplica un producto de una
 cadena entre las fechas determinadas. A continuación, se muestra un ejemplo de la
