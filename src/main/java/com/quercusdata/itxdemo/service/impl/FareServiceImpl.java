@@ -36,4 +36,15 @@ public class FareServiceImpl implements FareService {
         log.debug("Leaving");
         return Optional.of(fareMapper.mapPersistenceToApi( fareOpt.get()));
     }
+
+    @Override
+    public Optional<FareModel> getFareById(Long id) {
+        log.debug("Entering with id {}", id);
+        Optional<Fare> fareOpt = fareRepository.findById(id);
+        if (!fareOpt.isPresent()) {
+            return Optional.empty();
+        }
+        log.debug("Leaving");
+        return Optional.of(fareMapper.mapPersistenceToApi( fareOpt.get()));
+    }
 }

@@ -66,3 +66,8 @@ con los datos del ejemplo:
 (ZARA)
  Prueba 5: petición a las 21:00 del día 16 del producto 35455 para la marca 1
 (ZARA)
+
+
+SE AÑADEN LAS SIGUIENTES FUNCIONALIDADES
+
+-getById

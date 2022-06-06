@@ -5,4 +5,6 @@ import java.util.Optional;
 
 public interface FareService {
     Optional<FareModel> getFare(FareModel fareModel);
+
+    Optional<FareModel> getFareById(Long any);
 }

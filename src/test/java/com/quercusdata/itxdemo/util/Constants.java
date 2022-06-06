@@ -2,8 +2,6 @@ package com.quercusdata.itxdemo.util;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Constants {
     public static final LocalDateTime FARE_DATETIME_MOCK_1 = LocalDateTime.of(2020, Month.JUNE,14,10,0,0);

@@ -1,25 +1,25 @@
----
-swagger: "2.0"
+swagger: '2.0'
 info:
   title: itx-demo
   version: 1.0.0
   description: Demo for ITX API (Swagger)
 consumes:
-- application/json
+  - application/json
 produces:
-- application/json
+  - application/json
 paths:
   /fare:
     post:
       parameters:
-      - name: body
-        description: the fare payload
-        schema:
-          $ref: '#/definitions/FareModel'
-        in: body
-        required: true
+        -
+          name: body
+          description: the fare payload
+          schema:
+            $ref: '#/definitions/FareModel'
+          in: body
+          required: true
       responses:
-        "200":
+        '200':
           description: ' 200_OK'
           schema:
             $ref: '#/definitions/FareModel'
@@ -27,21 +27,55 @@ paths:
             application/json:
               id: 2
               productId: 35455
-              startDate: 2019-07-16T16:55:42
-              endDate: 2019-07-16T16:55:42
+              startDate: '2019-07-16T16:55:42.000Z'
+              endDate: '2019-07-16T16:55:42.000Z'
               brandId: 1
               price: 35.05
-        "404":
+        '404':
           description: FARE NOT FOUND
           examples:
             application/json:
-              timestamp: 2021-09-17T12:09:21.368+00:00
+              timestamp: '2021-09-17T12:09:21.368+00:00'
               status: 404
               error: Not Found
-              message: ""
+              message: ''
               path: /fare
       summary: get fare
       description: get the valid fare according to the business rules
+  '/fare/{id}':
+    get:
+      responses:
+        '200':
+          description: the fareModel object
+          schema:
+            $ref: '#/definitions/FareModel'
+          examples:
+            application/json:
+              id: 1
+              productId: 35455
+              startDate: '2020-06-14T00:00:00'
+              endDate: '2020-12-31T23:59:59'
+              brandId: 1
+              price: 35.5
+        '404':
+          description: FARE NOT FOUND
+          examples:
+            application/json:
+              timestamp: '2022-06-06T17:14:19.163+00:00'
+              status: 404
+              error: Not Found
+              message: ''
+              path: /fare/100
+      summary: get by id
+      description: get a fare by id
+    parameters:
+      -
+        name: id
+        description: the fare id
+        in: path
+        required: true
+        type: integer
+        format: int64
 definitions:
   Fare:
     description: the fare entity
@@ -83,8 +117,8 @@ definitions:
     example:
       id: 2
       productId: 35455
-      startDate: 2019-07-16T16:55:42
-      endDate: 2019-07-16T16:55:42
+      startDate: '2019-07-16T16:55:42.000Z'
+      endDate: '2019-07-16T16:55:42.000Z'
       brandId: 1
       price: 35.05
       priority: 0
@@ -93,9 +127,9 @@ definitions:
     title: Root Type for PriceModel
     description: Payload to interact with price services
     required:
-    - productId
-    - brandId
-    - startDate
+      - productId
+      - brandId
+      - startDate
     type: object
     properties:
       id:
@@ -123,6 +157,9 @@ definitions:
         description: the fare value
         type: number
     example:
+      id: 1
       productId: 35455
-      startDate: 2019-07-16T16:55:42
+      startDate: '2020-06-14T00:00:00'
+      endDate: '2020-12-31T23:59:59'
       brandId: 1
+      price: 35.5

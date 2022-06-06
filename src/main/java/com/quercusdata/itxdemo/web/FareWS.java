@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -28,6 +26,20 @@ public class FareWS {
     public ResponseEntity<FareModel> getFare(@RequestBody FareModel fareModel) {
         log.debug("Entering with fareModel {}", fareModel);
         Optional<FareModel> filteredFareModelOpt = fareService.getFare(fareModel);
+        if (!filteredFareModelOpt.isPresent()) {
+            log.debug(Constants.MESSAGE_FARE_NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.MESSAGE_FARE_NOT_FOUND);
+        }
+        log.debug("Leaving");
+        return new ResponseEntity<>(filteredFareModelOpt.get(), HttpStatus.OK);
+    }
+
+    @GetMapping(
+        value = {"/fare/{id}"},
+        produces = {"application/json"})
+    public ResponseEntity<FareModel> getFareById(@PathVariable Long id) {
+        log.debug("Entering with id {}", id);
+        Optional<FareModel> filteredFareModelOpt = fareService.getFareById(id);
         if (!filteredFareModelOpt.isPresent()) {
             log.debug(Constants.MESSAGE_FARE_NOT_FOUND);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.MESSAGE_FARE_NOT_FOUND);
