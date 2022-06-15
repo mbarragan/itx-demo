@@ -16,9 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -87,5 +89,35 @@ public class FareWSIntegrationTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(fareModelMock)))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getAllTest_return_emptyList() throws Exception {
+
+        //FareModel fareModelMock = Util.getFareModelMock();
+        List<FareModel> emptyList = Collections.emptyList();
+        Mockito.when(fareService.getAll()).thenReturn(emptyList);
+
+        mvc.perform(get("/fare").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(emptyList)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", notNullValue()))
+            .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    public void getAllTest_return_fullList() throws Exception {
+
+        List<FareModel> fareModels = Collections.singletonList(Util.getFareModelMock());
+        Mockito.when(fareService.getAll()).thenReturn(fareModels);
+
+        mvc.perform(get("/fare").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(fareModels)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", notNullValue()))
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$[0].productId", equalTo(Constants.PRODUCT_ID_MOCK)));
     }
 }

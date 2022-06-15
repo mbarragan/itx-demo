@@ -3,6 +3,8 @@ package com.quercusdata.itxdemo.web;
 import com.quercusdata.itxdemo.constant.Constants;
 import com.quercusdata.itxdemo.model.FareModel;
 import com.quercusdata.itxdemo.service.FareService;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,5 +48,15 @@ public class FareWS {
         }
         log.debug("Leaving");
         return new ResponseEntity<>(filteredFareModelOpt.get(), HttpStatus.OK);
+    }
+
+    @GetMapping(
+        value = {"/fare"},
+        produces = {"application/json"})
+    public ResponseEntity<List<FareModel>> getAll() {
+        log.debug("Entering");
+        List<FareModel> fareModels = fareService.getAll();
+        log.debug("Leaving with {} fares found", fareModels.size());
+        return new ResponseEntity<>(fareModels, HttpStatus.OK);
     }
 }
