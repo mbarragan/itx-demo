@@ -6,9 +6,9 @@ import com.quercusdata.itxdemo.model.FareModel;
 import com.quercusdata.itxdemo.repository.FareRepository;
 import com.quercusdata.itxdemo.service.FareService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +52,11 @@ public class FareServiceImpl implements FareService {
 
     @Override
     public List<FareModel> getAll() {
-        log.debug("Entering");
-        List<FareModel> fareModels = new ArrayList<>();
+        log.info("Entering");
+        List<FareModel> fareModels = fareRepository.findAll().stream()
+            .map(f -> fareMapper.mapPersistenceToApi(f))
+            .collect(Collectors.toList());
+        log.info("Found {} fareModels", fareModels.size());
         return fareModels;
     }
 }

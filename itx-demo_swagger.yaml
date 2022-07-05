@@ -9,6 +9,36 @@ produces:
   - application/json
 paths:
   /fare:
+    get:
+      responses:
+        '200':
+          description: get all fares or the empty list if no fares
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Fare'
+          examples:
+            application/json:
+              -
+                id: 83
+                productId: 71
+                startDate: '2018-02-10T09:30Z'
+                endDate: '2018-02-10T09:30Z'
+                brandId: 16
+                price: 82.96
+                priority: 86
+                currency: some text
+              -
+                id: 45
+                productId: 91
+                startDate: '2018-02-10T09:30Z'
+                endDate: '2018-02-10T09:30Z'
+                brandId: 49
+                price: 55.2
+                priority: 14
+                currency: some text
+      summary: Get all fares
+      description: Get all fares
     post:
       parameters:
         -
