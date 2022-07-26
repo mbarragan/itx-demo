@@ -70,4 +70,5 @@ con los datos del ejemplo:
 
 SE AÑADEN LAS SIGUIENTES FUNCIONALIDADES
 
--getById
+`getById`
+`getAll`

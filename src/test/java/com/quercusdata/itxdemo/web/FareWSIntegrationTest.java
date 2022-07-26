@@ -42,7 +42,7 @@ public class FareWSIntegrationTest {
 
         FareModel fareModelMock = new FareModel(null, Constants.PRODUCT_ID_MOCK,
             Constants.FARE_DATETIME_MOCK_2, null, Constants.BRAND_ID_MOCK, null);
-        Mockito.when(fareService.getFare(ArgumentMatchers.any(FareModel.class))).thenReturn(Optional.of(fareModelMock));
+        Mockito.when(fareService.getFareByProductAndBrand(ArgumentMatchers.any(FareModel.class))).thenReturn(Optional.of(fareModelMock));
 
         mvc.perform(post("/fare").contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -58,7 +58,7 @@ public class FareWSIntegrationTest {
     public void getFareTest_return_notFound() throws Exception {
 
         FareModel fareModelMock = Util.getFareModelMock();
-        Mockito.when(fareService.getFare(ArgumentMatchers.any(FareModel.class))).thenReturn(Optional.empty());
+        Mockito.when(fareService.getFareByProductAndBrand(ArgumentMatchers.any(FareModel.class))).thenReturn(Optional.empty());
 
         mvc.perform(post("/fare").contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

@@ -28,7 +28,7 @@ public class FareServiceImpl implements FareService {
 
 
     @Transactional
-    public Optional<FareModel> getFare(FareModel fareModel) {
+    public Optional<FareModel> getFareByProductAndBrand(FareModel fareModel) {
         log.debug("Entering with fareModel {}", fareModel);
         Optional<Fare> fareOpt = fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
             fareModel.getStartDate(), fareModel.getStartDate(), fareModel.getProductId(), fareModel.getBrandId());

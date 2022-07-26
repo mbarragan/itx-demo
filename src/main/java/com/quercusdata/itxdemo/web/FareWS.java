@@ -27,7 +27,7 @@ public class FareWS {
         consumes = {"application/json"})
     public ResponseEntity<FareModel> getFare(@RequestBody FareModel fareModel) {
         log.debug("Entering with fareModel {}", fareModel);
-        Optional<FareModel> filteredFareModelOpt = fareService.getFare(fareModel);
+        Optional<FareModel> filteredFareModelOpt = fareService.getFareByProductAndBrand(fareModel);
         if (!filteredFareModelOpt.isPresent()) {
             log.debug(Constants.MESSAGE_FARE_NOT_FOUND);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.MESSAGE_FARE_NOT_FOUND);

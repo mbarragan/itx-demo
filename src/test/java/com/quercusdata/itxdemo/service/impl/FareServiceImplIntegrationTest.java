@@ -19,6 +19,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -65,7 +67,7 @@ public class FareServiceImplIntegrationTest {
                 Constants.BRAND_ID_MOCK))
             .thenReturn(Optional.of( fareMock));
 
-        Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
+        Optional<FareModel> foundFareOpt = fareService.getFareByProductAndBrand(fareModelMock);
 
         Assert.assertTrue("foundFareOpt is present", foundFareOpt.isPresent());
         Assert.assertEquals(Constants.PRODUCT_ID_MOCK, foundFareOpt.get().getProductId());
@@ -78,7 +80,7 @@ public class FareServiceImplIntegrationTest {
         Mockito.when(fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
             Mockito.any(), Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(Optional.empty());
 
-        Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
+        Optional<FareModel> foundFareOpt = fareService.getFareByProductAndBrand(fareModelMock);
 
         Assert.assertFalse("foundFareOpt is not present", foundFareOpt.isPresent());
         Assert.assertEquals(Optional.empty(), foundFareOpt);
@@ -105,10 +107,28 @@ public class FareServiceImplIntegrationTest {
     public void whenInvalidFare_thenFareShouldNotBeFoundById() {
         Mockito.when(fareRepository.findById(1001L)).thenReturn(Optional.empty());
 
-        Optional<FareModel> foundFareOpt = fareService.getFare(fareModelMock);
+        Optional<FareModel> foundFareOpt = fareService.getFareById(1001L);
 
         Assert.assertFalse("foundFareOpt is not present", foundFareOpt.isPresent());
         Assert.assertEquals(Optional.empty(), foundFareOpt);
     }
 
+    @Test
+    public void whenNoFares_thenFaresShouldBeEmpty() {
+        Mockito.when(fareRepository.findAll()).thenReturn(Collections.emptyList());
+
+        List<FareModel> foundFares = fareService.getAll();
+
+        Assert.assertEquals(Collections.emptyList(), foundFares);
+    }
+
+    @Test
+    public void whenValidFares_thenFaresShouldBeNotEmpty() {
+        Mockito.when(fareRepository.findAll()).thenReturn(Collections.singletonList(fareMock));
+
+        List<FareModel> foundFares = fareService.getAll();
+
+        Assert.assertEquals(1, foundFares.size());
+        Assert.assertEquals(Constants.PRODUCT_ID_MOCK, foundFares.get(0).getProductId());
+    }
 }
