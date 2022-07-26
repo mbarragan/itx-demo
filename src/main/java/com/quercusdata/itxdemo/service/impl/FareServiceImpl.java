@@ -5,16 +5,14 @@ import com.quercusdata.itxdemo.mapper.FareMapper;
 import com.quercusdata.itxdemo.model.FareModel;
 import com.quercusdata.itxdemo.repository.FareRepository;
 import com.quercusdata.itxdemo.service.FareService;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FareServiceImpl implements FareService {
@@ -27,15 +25,14 @@ public class FareServiceImpl implements FareService {
     private FareMapper      fareMapper;
 
 
-    @Transactional
     public Optional<FareModel> getFareByProductAndBrand(FareModel fareModel) {
         log.debug("Entering with fareModel {}", fareModel);
         Optional<Fare> fareOpt = fareRepository.findFirstByStartDateBeforeAndEndDateAfterAndProductIdAndBrandIdOrderByPriorityDesc(
             fareModel.getStartDate(), fareModel.getStartDate(), fareModel.getProductId(), fareModel.getBrandId());
-        if (!fareOpt.isPresent()) {
+        if (fareOpt.isEmpty()) {
             return Optional.empty();
         }
-        log.debug("Leaving");
+        log.debug("Leaving. Found {}", fareOpt.get());
         return Optional.of(fareMapper.mapPersistenceToApi( fareOpt.get()));
     }
 
@@ -43,10 +40,10 @@ public class FareServiceImpl implements FareService {
     public Optional<FareModel> getFareById(Long id) {
         log.debug("Entering with id {}", id);
         Optional<Fare> fareOpt = fareRepository.findById(id);
-        if (!fareOpt.isPresent()) {
+        if (fareOpt.isEmpty()) {
             return Optional.empty();
         }
-        log.debug("Leaving");
+        log.debug("Leaving. Found {}", fareOpt.get());
         return Optional.of(fareMapper.mapPersistenceToApi( fareOpt.get()));
     }
 
